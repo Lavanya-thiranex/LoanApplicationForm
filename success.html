@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Submitted - SRI SAI FINANCE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .success-card {
+            text-align: center;
+            padding: 50px 30px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .amount-box {
+            background: linear-gradient(135deg, var(--primary-color), #007bff);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 30px 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .amount-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .amount-box .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .disclaimer {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: var(--radius-md);
+            border: 1px solid #ffeeba;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-decoration"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1>SRI SAI FINANCE</h1>
+            <p>Trusted Financial Partner</p>
+        </header>
+        <div class="card success-card">
+            <div class="success-icon">✓</div>
+            <h2>Application Submitted!</h2>
+            <p class="subtitle">Thank you for choosing Sri Sai Finance.</p>
+
+            <div class="id-box"
+                style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #ccc; display: inline-block;">
+                <span style="color: #666; font-size: 0.9rem;">Application ID:</span>
+                <strong id="appId"
+                    style="color: var(--primary-color); font-size: 1.1rem; letter-spacing: 1px;">Generating...</strong>
+            </div>
+
+            <div class="amount-box">
+                <h3>Pre-Approved Loan Limit</h3>
+                <div class="amount" id="approvedAmount">Calculating...</div>
+                <p style="font-size: 0.9rem; opacity: 0.9;">*Subject to verification</p>
+            </div>
+
+            <p style="color: var(--text-medium); margin-bottom: 20px;">
+                To proceed with your loan application, please send the approved amount and your unique Application
+                ID to our team via WhatsApp.
+            </p>
+
+            <div class="form-actions">
+                <a id="whatsappBtn" href="#" class="btn-primary"
+                    style="text-decoration: none; background-color: #25D366;">
+                    Proceed on WhatsApp
+                    <span style="margin-left: 8px; font-size: 1.2rem;">&#9993;</span>
+                    <!-- Unicode envelope/message icon as placeholder -->
+                </a>
+            </div>
+
+            <div class="disclaimer">
+                <strong>Note:</strong> This amount is not final. The actual approved loan amount may vary based on
+                further document verification.
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 SRI SAI FINANCE. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Check if data exists in localStorage
+            let randomAmount = localStorage.getItem('loan_amount');
+            let uniqueId = localStorage.getItem('loan_app_id');
+
+            // 2. If not found (new submission), generate and save
+            if (!randomAmount || !uniqueId) {
+                // Generate Amount (2L - 7L)
+                const min = 200000;
+                const max = 700000;
+                randomAmount = Math.floor(Math.random() * (max - min + 1)) + min;
+                randomAmount = Math.round(randomAmount / 5000) * 5000; // Round to nearest 5000
+
+                // Generate ID
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                uniqueId = '';
+                for (let i = 0; i < 8; i++) {
+                    uniqueId += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+
+                // Save to localStorage
+                localStorage.setItem('loan_amount', randomAmount);
+                localStorage.setItem('loan_app_id', uniqueId);
+            }
+
+            // 3. Display Data with a "Calculating" effect
+            const amountElement = document.getElementById('approvedAmount');
+            const idElement = document.getElementById('appId');
+
+            // Simulate calculation delay (1.5 seconds)
+            setTimeout(() => {
+                const formattedAmount = new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    maximumFractionDigits: 0
+                }).format(randomAmount);
+
+                amountElement.textContent = formattedAmount;
+                amountElement.style.color = "#ffffff"; // White color
+
+                idElement.textContent = uniqueId;
+
+                // 4. Configure WhatsApp Button
+                // REPLACE '916383538480' with your actual company number
+                const companyNumber = "916383538480";
+                const message = `Hello SRI SAI FINANCE,%0A%0AI have submitted my loan application.%0A%0A*Application ID:* ${uniqueId}%0A*Pre-Approved Amount:* ${formattedAmount}%0A%0APlease guide me with the next steps.`;
+
+                const whatsappUrl = `https://wa.me/${companyNumber}?text=${message}`;
+                document.getElementById('whatsappBtn').href = whatsappUrl;
+
+            }, 1500); // 1.5 seconds delay
+        });
+    </script>
+</body>
+
+</html>
