@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Application - SRI SAI FINANCE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0066cc 0%, #00c6ff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #004e92, #000428, #004e92, #2b5876);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: floatUp 25s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+
+        .particle:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .particle:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .particle:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+
+        .particle:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .particle:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .particle:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .processing-container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .processing-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Modern Ripple Loader */
+        .loader-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ripple {
+            position: absolute;
+            border: 4px solid #0066cc;
+            opacity: 1;
+            border-radius: 50%;
+            animation: ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+
+        .ripple:nth-child(2) {
+            animation-delay: -0.5s;
+        }
+
+        .ripple:nth-child(3) {
+            animation-delay: -1s;
+        }
+
+        .loader-icon {
+            font-size: 2.5rem;
+            z-index: 2;
+            animation: pulseIcon 2s infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                top: 58px;
+                left: 58px;
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+
+            100% {
+                top: -1px;
+                left: -1px;
+                width: 116px;
+                height: 116px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulseIcon {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        h2 {
+            color: #1a1a1a;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .timer-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+            font-family: 'Inter', monospace;
+            text-shadow: 0 10px 20px rgba(0, 102, 204, 0.1);
+        }
+
+        .warning-box {
+            background: rgba(255, 243, 205, 0.8);
+            color: #856404;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid #ffeeba;
+            margin: 20px 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            animation: shake 5s infinite;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            90% {
+                transform: translateX(0);
+            }
+
+            92% {
+                transform: translateX(-5px);
+            }
+
+            94% {
+                transform: translateX(5px);
+            }
+
+            96% {
+                transform: translateX(-5px);
+            }
+
+            98% {
+                transform: translateX(5px);
+            }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            margin: 30px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-gradient);
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.3s linear;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 102, 204, 0.5);
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(-45deg,
+                    rgba(255, 255, 255, .2) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, .2) 50%,
+                    rgba(255, 255, 255, .2) 75%,
+                    transparent 75%,
+                    transparent);
+            z-index: 1;
+            background-size: 20px 20px;
+            animation: moveStripes 1s linear infinite;
+        }
+
+        @keyframes moveStripes {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 20px 20px;
+            }
+        }
+
+        /* Status List */
+        .status-list {
+            margin-top: 30px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.5;
+            transform: scale(0.98);
+            border: 1px solid transparent;
+        }
+
+        .status-item.active {
+            opacity: 1;
+            transform: scale(1.02);
+            background: #fff;
+            border-color: #0066cc;
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.15);
+        }
+
+        .status-item.completed {
+            opacity: 1;
+            background: #f0fff4;
+            border-color: #2e7d32;
+        }
+
+        .status-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            background: #f0f0f0;
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        .status-item.active .status-icon {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            animation: iconPulse 2s infinite;
+        }
+
+        .status-item.completed .status-icon {
+            background: #2e7d32;
+            color: white;
+        }
+
+        @keyframes iconPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 102, 204, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 102, 204, 0);
+            }
+        }
+
+        .status-text {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .status-item.active .status-text {
+            color: #0066cc;
+        }
+
+        .status-item.completed .status-text {
+            color: #2e7d32;
+        }
+
+        /* Checkmark Animation */
+        .check-icon {
+            display: none;
+        }
+
+        .status-item.completed .check-icon {
+            display: inline-block;
+            margin-left: auto;
+            color: #2e7d32;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Particles -->
+    <ul class="particles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div class="processing-container">
+        <div class="processing-card">
+
+            <div class="loader-container">
+                <div class="ripple"></div>
+                <div class="ripple"></div>
+                <div class="loader-icon">🏦</div>
+            </div>
+
+            <h2>Processing Application</h2>
+            <p class="subtitle">Please wait while our AI analyzes your profile...</p>
+
+            <div class="timer-display" id="timer">00:45</div>
+
+            <div class="warning-box">
+                <span class="warning-icon">⚠️</span>
+                <span>DO NOT REFRESH OR CLOSE THIS PAGE</span>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <div class="status-list">
+                <div class="status-item" id="status1">
+                    <div class="status-icon">📋</div>
+                    <div class="status-text">Analyzing Application Details</div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="status-item" id="status2">
+                    <div class="status-icon">📍</div>
+                    <div class="status-text">Verifying Address & Location</div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="status-item" id="status3">
+                    <div class="status-icon">💰</div>
+                    <div class="status-text">Evaluating Income Stability</div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="status-item" id="status4">
+                    <div class="status-icon">🏦</div>
+                    <div class="status-text">Checking Banking History</div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="status-item" id="status5">
+                    <div class="status-icon">✨</div>
+                    <div class="status-text">Finalizing Pre-Approved Offer</div>
+                    <div class="check-icon">✓</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Prevent page refresh - but allow automatic redirect
+        let allowRedirect = false;
+
+        function preventUnload(e) {
+            if (!allowRedirect) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        }
+
+        window.addEventListener('beforeunload', preventUnload);
+
+        // Timer countdown (45 seconds)
+        let timeLeft = 45;
+        const timerElement = document.getElementById('timer');
+        const progressBar = document.getElementById('progressBar');
+
+        // Status items
+        const statusItems = [
+            { id: 'status1', delay: 2 },
+            { id: 'status2', delay: 10 },
+            { id: 'status3', delay: 20 },
+            { id: 'status4', delay: 30 },
+            { id: 'status5', delay: 38 }
+        ];
+
+        // Update timer every second
+        const countdown = setInterval(() => {
+            timeLeft--;
+
+            // Format time as MM:SS
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            // Update progress bar
+            const progress = ((45 - timeLeft) / 45) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Update status items based on time
+            statusItems.forEach((item, index) => {
+                const element = document.getElementById(item.id);
+                const timeElapsed = 45 - timeLeft;
+
+                if (timeElapsed >= item.delay && !element.classList.contains('active') && !element.classList.contains('completed')) {
+                    // Mark previous as completed
+                    if (index > 0) {
+                        const prevEl = document.getElementById(statusItems[index - 1].id);
+                        prevEl.classList.remove('active');
+                        prevEl.classList.add('completed');
+                        // Change icon to checkmark for completed
+                        prevEl.querySelector('.status-icon').innerHTML = '✓';
+                    }
+                    // Mark current as active
+                    element.classList.add('active');
+                }
+            });
+
+            // When timer reaches 0, redirect to success page
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                // Mark last item as completed
+                const lastEl = document.getElementById('status5');
+                lastEl.classList.remove('active');
+                lastEl.classList.add('completed');
+                lastEl.querySelector('.status-icon').innerHTML = '✓';
+
+                // Allow redirect and remove event listener
+                allowRedirect = true;
+                window.removeEventListener('beforeunload', preventUnload);
+
+                // Redirect after a brief moment
+                setTimeout(() => {
+                    window.location.href = 'success.html';
+                }, 800);
+            }
+        }, 1000);
+
+        // Activate first status immediately
+        setTimeout(() => {
+            document.getElementById('status1').classList.add('active');
+        }, 500);
+    </script>
+</body>
+
+</html>
